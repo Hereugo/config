@@ -16,8 +16,8 @@ return {
 				"clangd",
 				"html",
 				"cssls",
-				"eslint",
 				"gopls",
+				"ts_ls",
 			},
 		})
 
@@ -29,7 +29,6 @@ return {
 				"isort", -- python formatter
 				"black", -- python formatter
 				"pylint",
-				"eslint_d",
 				"sqlls",
 				"sqlfmt",
 				"rustfmt",
