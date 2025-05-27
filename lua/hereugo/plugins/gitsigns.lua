@@ -41,5 +41,19 @@ return {
 				col = 1,
 			},
 		})
+
+		-- gitsigns mappings
+		vim.keymap.set(
+			"n",
+			"<leader>gh",
+			":Gitsigns preview_hunk<CR>",
+			{ noremap = true, desc = "Gitsigns: preview [h]unk" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>gi",
+			":Gitsigns preview_hunk_inline<CR>",
+			{ noremap = true, desc = "Gitsigns: preview hunk [i]nline" }
+		)
 	end,
 }
