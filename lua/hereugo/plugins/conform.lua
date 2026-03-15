@@ -22,15 +22,27 @@ return {
 				c = { "clang_format" },
 				cpp = { "clang_format" },
 				go = { "gofmt" },
+				php = { "pint", "php_cs_fixer" },
 			},
 			format_on_save = {
 				lsp_fallback = true,
 				async = false,
-				timeout_ms = 1000,
+				timeout_ms = 500,
 			},
 			formatters = {
 				sqlfmt = {
 					prepend_args = { "--fast" },
+				},
+				php_cs_fixer = {
+					command = "php-cs-fixer",
+					args = {
+						"fix",
+						"$FILENAME",
+					},
+					stdin = false,
+					env = {
+						PHP_CS_FIXER_IGNORE_ENV = "1",
+					},
 				},
 			},
 		})
@@ -39,7 +51,7 @@ return {
 			conform.format({
 				lsp_fallback = true,
 				async = false,
-				timeout_ms = 1000,
+				timeout_ms = 500,
 			})
 		end, { desc = "Format file or range (in visual mode)" })
 	end,

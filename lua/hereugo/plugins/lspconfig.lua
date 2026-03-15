@@ -41,6 +41,18 @@ return {
 				vim.keymap.set("n", "vrn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 				vim.keymap.set({ "n", "x" }, "vf", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
 				vim.keymap.set("n", "vca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+
+				-- Show diagnostics in a floating window
+				vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
+
+				-- Go to next diagnostic
+				vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
+
+				-- Go to previous diagnostic
+				vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", opts)
+
+				-- Set location list with diagnostics
+				vim.keymap.set("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<cr>", opts)
 			end,
 		})
 
@@ -94,7 +106,6 @@ return {
 			end,
 			["ts_ls"] = function()
 				nvim_lsp["ts_ls"].setup({
-					on_attach = on_attach,
 					capabilities = capabilities,
 				})
 			end,

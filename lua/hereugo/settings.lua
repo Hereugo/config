@@ -21,11 +21,14 @@ vim.opt.updatetime = 250
 -- vim.opt.colorcolumn = "80"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.statusline = table.concat({
-  "%<%f",      -- Truncated filename
-  " %h%m%r",   -- Flags for help, modified, readonly
-  "%{FugitiveStatusline()}", -- Fugitive status
-  "%=",        -- Right-align
-  "%-14.(%l,%c%V%)", -- Line, column, and virtual column
-  " %P",       -- Percentage through file
+	"%<%f", -- Truncated filename
+	" %h%m%r", -- Flags for help, modified, readonly
+	"%{FugitiveStatusline()}", -- Fugitive status
+	"%=", -- Right-align
+	"%-14.(%l,%c%V%)", -- Line, column, and virtual column
+	" %P", -- Percentage through file
 }, " ")
 
+-- override settings with .nvimrc file if present
+vim.o.exrc = true
+vim.o.secure = true
