@@ -27,7 +27,7 @@ return {
 		provider = "copilot",
 		providers = {
 			copilot = {
-				model = "claude-opus-4.6",
+				model = "gpt-4o",
 				timeout = 60000,
 				extra_request_body = {
 					temperature = 0.75,
