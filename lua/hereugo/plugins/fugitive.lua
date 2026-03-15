@@ -10,6 +10,7 @@ return {
 		vim.keymap.set("n", "<leader>gb", ":Git branch<Space>", { noremap = true, desc = "git branch" })
 		vim.keymap.set("n", "<leader>go", ":Git checkout<Space>", { noremap = true, desc = "git checkout" })
 
+		-- Testing
 		vim.keymap.set("n", "<leader>gc", function()
 			local Job = require("plenary.job")
 
