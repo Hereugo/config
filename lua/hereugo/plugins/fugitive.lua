@@ -10,20 +10,34 @@ return {
 		vim.keymap.set("n", "<leader>gb", ":Git branch<Space>", { noremap = true, desc = "git branch" })
 		vim.keymap.set("n", "<leader>go", ":Git checkout<Space>", { noremap = true, desc = "git checkout" })
 
-		-- Map <leader>gc to perform a Git commit and interact with the Avante API
+		-- Testing
 		vim.keymap.set("n", "<leader>gc", function()
-			-- Trigger the Git commit command
-			vim.cmd("Git commit")
+			local Job = require("plenary.job")
 
-			-- After a short delay, open a vertical split and interact with the Avante API
-			vim.defer_fn(function()
-				vim.cmd("vsplit")
-				-- Use the Avante API to ask a question related to the commit
-				require("avante.api").ask({
-					without_selection = true, -- No selection required
-					question = "/commit",    -- Specify the commit-related question
-				})
-			end, 100) -- Delay of 100ms before executing the function
-		end)
+			Job:new({
+				command = "git",
+				args = { "diff", "--cached", "--quiet" },
+				on_exit = function(_, return_val)
+					vim.schedule(function()
+						if return_val == 0 then
+							vim.notify("No staged changes to commit.", vim.log.levels.WARN)
+							return
+						elseif return_val ~= 1 then
+							vim.notify("Failed to check staged changes.", vim.log.levels.ERROR)
+							return
+						end
+
+						vim.cmd("Git commit")
+
+						vim.defer_fn(function()
+							require("avante.api").ask({
+								without_selection = true,
+								question = "/commit",
+							})
+						end, 100)
+					end)
+				end,
+			}):start()
+		end, { noremap = true, desc = "commit with Avante assist" })
 	end,
 }
