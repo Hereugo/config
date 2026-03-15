@@ -4,7 +4,7 @@ return {
 		vim.keymap.set("n", "<leader>gs", ":Git<CR>", { noremap = true, desc = "git status" })
 		vim.keymap.set("n", "<leader>ga", ":Git add ", { noremap = true, desc = "git add " })
 		vim.keymap.set("n", "<leader>gA", ":Git add .<CR>", { noremap = true, desc = "git add ." })
-		vim.keymap.set("n", "<leader>gp", ":Git push --quiet<CR>", { noremap = true, desc = "git push" })
+		vim.keymap.set("n", "<leader>gp", ":Git push <CR>", { noremap = true, desc = "git push" })
 		vim.keymap.set("n", "<leader>gd", ":Gdiffsplit<CR>", { noremap = true, desc = "git diff" })
 		vim.keymap.set("n", "<leader>gl", ":silent! GlLog<CR>", { noremap = true, desc = "git log" })
 		vim.keymap.set("n", "<leader>gb", ":Git branch<Space>", { noremap = true, desc = "git branch" })
@@ -32,6 +32,7 @@ return {
 
 							vim.defer_fn(function()
 								require("avante.api").ask({
+									new_chat = true,
 									without_selection = true,
 									question = "Write a concise git commit message for the staged changes. Return only the subject line.",
 								})
