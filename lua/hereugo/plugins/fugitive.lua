@@ -10,34 +10,35 @@ return {
 		vim.keymap.set("n", "<leader>gb", ":Git branch<Space>", { noremap = true, desc = "git branch" })
 		vim.keymap.set("n", "<leader>go", ":Git checkout<Space>", { noremap = true, desc = "git checkout" })
 
-		-- Testing
 		vim.keymap.set("n", "<leader>gc", function()
 			local Job = require("plenary.job")
 
-			Job:new({
-				command = "git",
-				args = { "diff", "--cached", "--quiet" },
-				on_exit = function(_, return_val)
-					vim.schedule(function()
-						if return_val == 0 then
-							vim.notify("No staged changes to commit.", vim.log.levels.WARN)
-							return
-						elseif return_val ~= 1 then
-							vim.notify("Failed to check staged changes.", vim.log.levels.ERROR)
-							return
-						end
+			Job
+				:new({
+					command = "git",
+					args = { "diff", "--cached", "--quiet" },
+					on_exit = function(_, return_val)
+						vim.schedule(function()
+							if return_val == 0 then
+								vim.notify("No staged changes to commit.", vim.log.levels.WARN)
+								return
+							elseif return_val ~= 1 then
+								vim.notify("Failed to check staged changes.", vim.log.levels.ERROR)
+								return
+							end
 
-						vim.cmd("Git commit")
+							vim.cmd("Git commit")
 
-						vim.defer_fn(function()
-							require("avante.api").ask({
-								without_selection = true,
-								question = "/commit",
-							})
-						end, 100)
-					end)
-				end,
-			}):start()
+							vim.defer_fn(function()
+								require("avante.api").ask({
+									without_selection = true,
+									question = "Write a concise git commit message for the staged changes. Return only the subject line.",
+								})
+							end, 100)
+						end)
+					end,
+				})
+				:start()
 		end, { noremap = true, desc = "commit with Avante assist" })
 	end,
 }
