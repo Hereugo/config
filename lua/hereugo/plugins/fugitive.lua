@@ -34,7 +34,7 @@ return {
 								require("avante.api").ask({
 									new_chat = true,
 									without_selection = true,
-									question = "Write a concise git commit message for the staged changes. Return only the subject line.",
+									question = "Write a concise git commit message for the staged changes. Return only the subject line and list of details if subject line can't capture everything.",
 								})
 							end, 100)
 						end)

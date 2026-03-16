@@ -32,3 +32,6 @@ vim.opt.statusline = table.concat({
 -- override settings with .nvimrc file if present
 vim.o.exrc = true
 vim.o.secure = true
+
+-- views can only be fully collapsed with the global statusline
+vim.opt.laststatus = 3
